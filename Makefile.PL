@@ -10,6 +10,8 @@ WriteMakefile(
     PL_FILES            => {},
     PREREQ_PM => {
         'Test::More' => 0,
+		'URI' => 0,
+		'LWP' => 0
     },
     dist                => { COMPRESS => 'gzip -9f', SUFFIX => 'gz', },
     clean               => { FILES => 'LWP-Protocol-virtual-*' },

@@ -10,11 +10,11 @@ LWP::Protocol::virtual - Protocol to locate resources on groups of sites
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 use LWP::Protocol;
 use HTTP::Status qw( RC_BAD_REQUEST RC_FOUND       );
 use Carp qw(confess);
@@ -26,33 +26,36 @@ our (@ISA) = qw(LWP::Protocol);
 
 =head1 SYNOPSIS
 
-	## From shell, not perl.
-	cpan URI::virtual
-	echo 'CPAN http://cpan.mirror.com/pub/CPAN' > ~/.lwp_virt
-    GET virtual://CPAN/some/path/some-path-1.0.tgz > some-path-1.0.tgz
-	perl -MCPAN -e '
-		my $CPAN = CPAN->new();
-		CPAN::Config->load($CPAN);
-		CPAN::Config->{urllist} = [ qw(virtual://CPAN/) ];
-		CPAN::Config->commit($CPAN);
-	'
+ #
+## From shell, not perl.
+cpan URI::virtual
+echo 'CPAN http://cpan.mirror.com/pub/CPAN' > ~/.lwp_virt
+GET virtual://CPAN/some/path/some-path-1.0.tgz > some-path-1.0.tgz
+perl -MCPAN -e '
+	my $CPAN = CPAN->new();
+	CPAN::Config->load($CPAN);
+	$CPAN::Config->{urllist} = [ qw(virtual://CPAN/) ];
+	CPAN::Config->commit("MyConfig.pm");
+'
+## Move MyConfig to somewhere CPAN will find it.
 
 
 =head1 FUNCTIONS
 
 =head2 request
 
-	This processes a request, by calling $uri->resolve on the URI object
-	(which one would suspect is an instalnce of URI::virtual, and therefore
-	supports it) and returning a redirect to the uri returned.  Any URI
-	subclass which satisfies the conditions:
-		$uri->can("resolve")->()->isa("URI")
-		ref $uri->can("path") eq 'CODE'
+This processes a request, by calling $uri->resolve on the URI object
+(which one would suspect is an instalnce of URI::virtual, and therefore
+supports it) and returning a redirect to the uri returned.  Any URI
+subclass which satisfies the conditions:
 
-	will be acceptable.  How you would tell LWP to use this Protocol
-	for another scheme is anybody's guess.
+	$uri->can("resolve")->()->isa("URI")
+	ref $uri->can("path") eq 'CODE'
+
+will be acceptable.  How you would tell LWP to use this Protocol
+for another scheme is anybody's guess.
 	
-	see URI::virtual.
+see URI::virtual.
 
 =cut
 
@@ -68,7 +71,7 @@ sub request {
 
 Rich Paul, C<< <cpan@rich-paul.net> >>
 Mail to this address bounces, but you'll think of something.
-It's a poor man's turing test.
+It's a poor man's Turing Test.
 
 =head1 BUGS
 

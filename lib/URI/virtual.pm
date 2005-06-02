@@ -1,20 +1,26 @@
 # vim: ts=4 sw=4
 
 =head1 NAME
+
 URI::virtual - virtual URI, refers to a list of prefixes.
+
 =cut
 package URI::virtual;
 
 =head1 VERSION
-Version 0.01
+
+Version 0.02
+
 =cut
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 =pod
 
 package URI::virtual;
 
 =head1 REQUIRES
+
 URI::http, Carp
+
 =cut
 use warnings;
 use URI::http;
@@ -23,6 +29,7 @@ our(@ISA) = qw(URI::http);
 
 =head1 SYNOPSIS
 
+ #
 use lib "$ENV{PWD}/lib";
 use URI;
 use Data::Dumper;
@@ -33,22 +40,19 @@ my @uris = (
 for ( @uris ) {
 	print ref, " => ", $_, "\n";
 };
-
-q[
+__DATA__
 #my config
 CPAN 	ftp://mirror.hiwaay.net/CPAN/ 
 CPAN	ftp://csociety-ftp.ecn.purdue.edu/pub/CPAN
 CPAN	ftp://cpan.mirrors.redwire.net/pub/CPAN/
 #include /usr/portage/profiles/thirdpartymirrors
 #my results
-URI::virtual => virt://CPAN/authors/
+URI::virtual => virtual://CPAN/authors/
 URI::ftp => ftp://cpan.mirrors.redwire.net/pub/CPAN///modules/
 URI::ftp => ftp://cpan.mirrors.redwire.net/pub/CPAN///modules/
 URI::ftp => ftp://csociety-ftp.ecn.purdue.edu/pub/CPAN//modules/
 URI::ftp => ftp://csociety-ftp.ecn.purdue.edu/pub/CPAN//modules/
 URI::ftp => ftp://cpan.mirrors.redwire.net/pub/CPAN///modules/
-]
-
 
 =cut
 
